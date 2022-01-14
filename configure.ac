@@ -56,38 +56,38 @@ AS_IF([test ."$_cv_gnu_make_command" != .''],
 AC_SYS_LARGEFILE
 
 AC_PROG_CC
-gl_EARLY
+dnl gl_EARLY
 
 AC_PROG_LN_S
 AC_PROG_INSTALL
 AC_PROG_MKDIR_P
 AC_PROG_YACC
 
-AC_MSG_CHECKING([whether included regex is requested])
-AC_ARG_WITH([included-regex],
-  [AS_HELP_STRING([--with-included-regex],
-    [use GNU regex library included here])],[],
-    [with_included_regex=check])
-AC_MSG_RESULT([$with_included_regex])
+dnl AC_MSG_CHECKING([whether included regex is requested])
+dnl AC_ARG_WITH([included-regex],
+dnl   [AS_HELP_STRING([--with-included-regex],
+dnl     [use GNU regex library included here])],[],
+dnl     [with_included_regex=check])
+dnl AC_MSG_RESULT([$with_included_regex])
 
-AS_IF([test ! ."$with_included_regex" = .'yes'],
-  [AC_CHECK_FUNCS([regcomp],[with_included_regex=no],
-    [with_included_regex=yes]
-    [AC_MSG_WARN([System regex not found, falling back to included version])])])
-AM_CONDITIONAL([LIBADD_REGEX], [test ."$with_included_regex" = .'yes'])
-AM_COND_IF([LIBADD_REGEX],
-  [AC_DEFINE([HAVE_REG_SYNTAX_T], [1],
-    [Define to 1 if regex.h defines `reg_syntax_t'.])],
-  [AC_CHECK_TYPES([reg_syntax_t],
-    [AC_DEFINE([HAVE_REG_SYNTAX_T], [1],
-      [Define to 1 if regex.h defines `reg_syntax_t'.])],[],
-      [[#include <sys/types.h>
-#include <regex.h>]])])
+dnl AS_IF([test ! ."$with_included_regex" = .'yes'],
+dnl   [AC_CHECK_FUNCS([regcomp],[with_included_regex=no],
+dnl     [with_included_regex=yes]
+dnl     [AC_MSG_WARN([System regex not found, falling back to included version])])])
+dnl AM_CONDITIONAL([LIBADD_REGEX], [test ."$with_included_regex" = .'yes'])
+dnl AM_COND_IF([LIBADD_REGEX],
+dnl   [AC_DEFINE([HAVE_REG_SYNTAX_T], [1],
+dnl     [Define to 1 if regex.h defines `reg_syntax_t'.])],
+dnl   [AC_CHECK_TYPES([reg_syntax_t],
+dnl     [AC_DEFINE([HAVE_REG_SYNTAX_T], [1],
+dnl       [Define to 1 if regex.h defines `reg_syntax_t'.])],[],
+dnl       [[#include <sys/types.h>
+dnl #include <regex.h>]])])
 
-gl_INIT
-AM_CONDITIONAL([LDADD_LIBGNU],
-  [test ."$with_included_regex" = .'yes' \
-    || test ."$ac_cv_func_getopt_long_only" = .'yes'])
+dnl gl_INIT
+dnl AM_CONDITIONAL([LDADD_LIBGNU],
+dnl   [test ."$with_included_regex" = .'yes' \
+dnl     || test ."$ac_cv_func_getopt_long_only" = .'yes'])
 
 #
 # Checks for libraries.
@@ -368,7 +368,6 @@ AC_CONFIG_FILES([                                                             \
   Makefile                                                                    \
   doc/Makefile                                                                \
   doc/bwk/Makefile                                                            \
-  lib/Makefile                                                                \
   po/Makefile.in                                                              \
   src/Makefile                                                                \
   testsuite/Makefile                                                          \

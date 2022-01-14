@@ -36,13 +36,13 @@ AM_CPPFLAGS = -I$(top_srcdir)						      \
 	      -I$(top_builddir)/include					      \
 	      -DLOCALEDIR=\"$(localedir)\"
 
-if LDADD_LIBGNU
-ed_LDADD += ../lib/libgnu.a
-endif LDADD_LIBGNU
+# if LDADD_LIBGNU
+# ed_LDADD += ../lib/libgnu.a
+# endif LDADD_LIBGNU
 
-if LIBADD_REGEX
-AM_CPPFLAGS += -DRE_ENABLE_I18N=1
-endif LIBADD_REGEX
+# if LIBADD_REGEX
+# AM_CPPFLAGS += -DRE_ENABLE_I18N=1
+# endif LIBADD_REGEX
 
 if LDADD_LIBINTL
 AM_CPPFLAGS += -I$(top_srcdir)/intl -I$(top_builddir)/intl

@@ -796,53 +796,6 @@ AC_DEFUN([_AM_SET_OPTIONS],
 AC_DEFUN([_AM_IF_OPTION],
 [m4_ifset(_AM_MANGLE_OPTION([$1]), [$2], [$3])])
 
-# Copyright (C) 1999-2021 Free Software Foundation, Inc.
-#
-# This file is free software; the Free Software Foundation
-# gives unlimited permission to copy and/or distribute it,
-# with or without modifications, as long as this notice is preserved.
-
-# _AM_PROG_CC_C_O
-# ---------------
-# Like AC_PROG_CC_C_O, but changed for automake.  We rewrite AC_PROG_CC
-# to automatically call this.
-AC_DEFUN([_AM_PROG_CC_C_O],
-[AC_REQUIRE([AM_AUX_DIR_EXPAND])dnl
-AC_REQUIRE_AUX_FILE([compile])dnl
-AC_LANG_PUSH([C])dnl
-AC_CACHE_CHECK(
-  [whether $CC understands -c and -o together],
-  [am_cv_prog_cc_c_o],
-  [AC_LANG_CONFTEST([AC_LANG_PROGRAM([])])
-  # Make sure it works both with $CC and with simple cc.
-  # Following AC_PROG_CC_C_O, we do the test twice because some
-  # compilers refuse to overwrite an existing .o file with -o,
-  # though they will create one.
-  am_cv_prog_cc_c_o=yes
-  for am_i in 1 2; do
-    if AM_RUN_LOG([$CC -c conftest.$ac_ext -o conftest2.$ac_objext]) \
-         && test -f conftest2.$ac_objext; then
-      : OK
-    else
-      am_cv_prog_cc_c_o=no
-      break
-    fi
-  done
-  rm -f core conftest*
-  unset am_i])
-if test "$am_cv_prog_cc_c_o" != yes; then
-   # Losing compiler, so override with the script.
-   # FIXME: It is wrong to rewrite CC.
-   # But if we don't then we get into trouble of one sort or another.
-   # A longer-term fix would be to have automake use am__CC in this case,
-   # and then we could set am__CC="\$(top_srcdir)/compile \$(CC)"
-   CC="$am_aux_dir/compile $CC"
-fi
-AC_LANG_POP([C])])
-
-# For backward compatibility.
-AC_DEFUN_ONCE([AM_PROG_CC_C_O], [AC_REQUIRE([AC_PROG_CC])])
-
 # Copyright (C) 2001-2021 Free Software Foundation, Inc.
 #
 # This file is free software; the Free Software Foundation
@@ -1182,75 +1135,27 @@ AC_SUBST([am__untar])
 ]) # _AM_PROG_TAR
 
 m4_include([m4/00gnulib.m4])
-m4_include([m4/__inline.m4])
-m4_include([m4/absolute-header.m4])
 m4_include([m4/ax_check_gnu_make.m4])
 m4_include([m4/ax_check_openssl.m4])
 m4_include([m4/ax_compile_check_sizeof.m4])
-m4_include([m4/btowc.m4])
-m4_include([m4/builtin-expect.m4])
-m4_include([m4/codeset.m4])
-m4_include([m4/eealloc.m4])
 m4_include([m4/extensions.m4])
-m4_include([m4/extern-inline.m4])
-m4_include([m4/getopt.m4])
 m4_include([m4/gettext.m4])
-m4_include([m4/gnulib-common.m4])
-m4_include([m4/gnulib-comp.m4])
 m4_include([m4/host-cpu-c-abi.m4])
 m4_include([m4/iconv.m4])
-m4_include([m4/include_next.m4])
 m4_include([m4/intlmacosx.m4])
-m4_include([m4/inttypes.m4])
-m4_include([m4/langinfo_h.m4])
 m4_include([m4/lib-ld.m4])
 m4_include([m4/lib-link.m4])
 m4_include([m4/lib-prefix.m4])
 m4_include([m4/libtool.m4])
-m4_include([m4/limits-h.m4])
-m4_include([m4/localcharset.m4])
-m4_include([m4/locale-fr.m4])
-m4_include([m4/locale-ja.m4])
-m4_include([m4/locale-zh.m4])
-m4_include([m4/locale_h.m4])
-m4_include([m4/localeconv.m4])
-m4_include([m4/lock.m4])
 m4_include([m4/longlong.m4])
 m4_include([m4/ltoptions.m4])
 m4_include([m4/ltsugar.m4])
 m4_include([m4/ltversion.m4])
 m4_include([m4/lt~obsolete.m4])
 m4_include([m4/mbrtowc.m4])
-m4_include([m4/mbsinit.m4])
-m4_include([m4/mbstate_t.m4])
-m4_include([m4/mbtowc.m4])
-m4_include([m4/multiarch.m4])
-m4_include([m4/nl_langinfo.m4])
 m4_include([m4/nls.m4])
-m4_include([m4/nocrash.m4])
-m4_include([m4/off_t.m4])
 m4_include([m4/pid_t.m4])
 m4_include([m4/po.m4])
 m4_include([m4/progtest.m4])
-m4_include([m4/pthread_rwlock_rdlock.m4])
-m4_include([m4/regex.m4])
-m4_include([m4/setlocale_null.m4])
-m4_include([m4/ssize_t.m4])
 m4_include([m4/std-gnu11.m4])
-m4_include([m4/stdbool.m4])
-m4_include([m4/stddef_h.m4])
-m4_include([m4/stdint.m4])
-m4_include([m4/stdlib_h.m4])
-m4_include([m4/sys_types_h.m4])
-m4_include([m4/threadlib.m4])
 m4_include([m4/ulonglong.m4])
-m4_include([m4/unistd_h.m4])
-m4_include([m4/vararrays.m4])
-m4_include([m4/visibility.m4])
-m4_include([m4/warn-on-use.m4])
-m4_include([m4/wchar_h.m4])
-m4_include([m4/wchar_t.m4])
-m4_include([m4/wcrtomb.m4])
-m4_include([m4/wctype_h.m4])
-m4_include([m4/wint_t.m4])
-m4_include([m4/zzgnulib.m4])

@@ -10,13 +10,13 @@ ACLOCAL_AMFLAGS = -I m4
 
 SUBDIRS =
 
-if LDADD_LIBGNU
-SUBDIRS += lib
-endif LDADD_LIBGNU
+# if LDADD_LIBGNU
+# SUBDIRS += lib
+# endif LDADD_LIBGNU
 
 SUBDIRS += src po doc testsuite
 
-EXTRA_DIST = m4/gnulib-cache.m4 include/pathmax.h include/argmax.h
+EXTRA_DIST = include/pathmax.h include/argmax.h include/gettext.h
 
 HEAD_COMMIT = $(shell git rev-parse --short HEAD)
 
@@ -29,46 +29,47 @@ quick-check: all
 #	git archive --format=tar --prefix=$(PACKAGE)-$(VERSION)/ HEAD |	      \
 #		gzip >../ed-$(VERSION)~g$(HEAD_COMMIT).tgz
 
-maintainer-update-dist: update-gnulib update-po
+# maintainer-update-dist: update-gnulib update-po
+maintainer-update-dist: update-po
 
-update-gnulib:
-	@if test ! -x $(gnulib_srcdir)/gnulib-tool; then		      \
-	  echo "gnulib-tool: No such file or directory.";		      \
-	  exit;								      \
-	else								      \
-	  echo "*** Refreshing gnulib sources ***";			      \
-	fi;								      \
-	git -C "$(gnulib_srcdir)" pull;					      \
-	echo "*** Importing gnulib modules ***";			      \
-	if test -f lib/regex.h; then					      \
-	  rm -f lib/regex.h;						      \
-	fi;								      \
-	"$(gnulib_srcdir)/gnulib-tool" --import				      \
-	  --lib=libgnu							      \
-	  --source-base=lib						      \
-	  --m4-base=m4							      \
-	  --doc-base=doc						      \
-	  --tests-base=tests						      \
-	  --aux-dir=.							      \
-	  --conditional-dependencies					      \
-	  --no-libtool							      \
-	  --macro-prefix=gl						      \
-	  getopt-gnu							      \
-	  regex
-	@if test -f lib/regex.h; then					      \
-	  echo "*** Moving lib/regex.h => lib/regex.h.in ***";		      \
-	  mv lib/regex.h lib/regex.h.in;				      \
-	fi;								      \
-	if test -f lib/dynarray.h; then					      \
-	  echo "*** Moving lib/dynarray.h => lib/dynarray.h.in ***";	      \
-	  mv lib/dynarray.h lib/dynarray.h.in;				      \
-	fi;								      \
-	if test -f lib/patch-Makefile.am.diff; then			      \
-	  echo "*** Patching refreshed lib/Makefile.am ***";		      \
-	  patch lib/Makefile.am lib/patch-Makefile.am.diff;		      \
-	fi;								      \
-	echo "*** Running autogen.sh ***";				      \
-	./autogen.sh --silent
+# update-gnulib:
+#	@if test ! -x $(gnulib_srcdir)/gnulib-tool; then		      \
+#	  echo "gnulib-tool: No such file or directory.";		      \
+#	  exit;								      \
+#	else								      \
+#	  echo "*** Refreshing gnulib sources ***";			      \
+#	fi;								      \
+#	git -C "$(gnulib_srcdir)" pull;					      \
+#	echo "*** Importing gnulib modules ***";			      \
+#	if test -f lib/regex.h; then					      \
+#	  rm -f lib/regex.h;						      \
+#	fi;								      \
+#	"$(gnulib_srcdir)/gnulib-tool" --import				      \
+#	  --lib=libgnu							      \
+#	  --source-base=lib						      \
+#	  --m4-base=m4							      \
+#	  --doc-base=doc						      \
+#	  --tests-base=tests						      \
+#	  --aux-dir=.							      \
+#	  --conditional-dependencies					      \
+#	  --no-libtool							      \
+#	  --macro-prefix=gl						      \
+#	  getopt-gnu							      \
+#	  regex
+#	@if test -f lib/regex.h; then					      \
+#	  echo "*** Moving lib/regex.h => lib/regex.h.in ***";		      \
+#	  mv lib/regex.h lib/regex.h.in;				      \
+#	fi;								      \
+#	if test -f lib/dynarray.h; then					      \
+#	  echo "*** Moving lib/dynarray.h => lib/dynarray.h.in ***";	      \
+#	  mv lib/dynarray.h lib/dynarray.h.in;				      \
+#	fi;								      \
+#	if test -f lib/patch-Makefile.am.diff; then			      \
+#	  echo "*** Patching refreshed lib/Makefile.am ***";		      \
+#	  patch lib/Makefile.am lib/patch-Makefile.am.diff;		      \
+#	fi;								      \
+#	echo "*** Running autogen.sh ***";				      \
+#	./autogen.sh --silent
 
 update-po:
 	-$(MAKE) -C po $(AM_MAKEFLAGS) update-po
