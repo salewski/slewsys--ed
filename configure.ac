@@ -153,7 +153,7 @@ else
 fi
 
 case `$CC -dumpmachine | cut -d- -f1` in
-    x86_64)
+    aarch64|x86_64)
         if test ."$ac_cv_sizeof_off_t" = ."$ac_cv_sizeof_long"; then
             AC_DEFINE_UNQUOTED([OFF_T_SIZE], [long],
               [Define int with storage size of off_t.])
