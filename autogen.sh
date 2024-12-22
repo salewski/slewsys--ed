@@ -7,6 +7,22 @@
 #
 script_name=$(basename $0)
 
+if set +o 2>/dev/null | grep -q 'pipefail$'; then
+    set -o pipefail
+fi
+
+which ()
+{
+    # Red Hat and OpenSUSE define `which' as an alias which isn't
+    # exported to sub-shells, and though functions are shadowed by
+    # aliases, at least this should be seen by sub-shells. Since
+    # `type' is POSIX, and we can reasonably assume this function's
+    # argument (one of the autotools) is in the command path, it ought
+    # to serve our purposes, knock on wood.
+    type "$1" 2>/dev/null |
+        sed -n '1s,.*is \(/.*\),\1,p' || return $?
+}
+
 case "$1" in
     -h*|--h*)
         echo "Usage: $script_name [-h|--help] [-s|--silent] [maintainer-update-dist]"
